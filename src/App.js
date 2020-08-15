@@ -1,4 +1,9 @@
 import React, { Component } from 'react'
+import AddCardList from './components/AddCardList'
+import MyPokedex from './containers/MyPokedex'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchCards, openAddCard } from './actions/cards-action'
 import './App.css'
 
 const COLORS = {
@@ -16,12 +21,37 @@ const COLORS = {
 }
 
 class App extends Component {
+  async componentDidMount() {
+    this.getItems()
+  }
+  async getItems() {
+    await this.props.fetchCards()
+  }
   render() {
     return (
       <div className="App">
+        <MyPokedex />
+        <div className="add-container">
+          <button className="addBtn" onClick={this.props.openAddCard}><div>+</div></button>
+        </div>
+        {this.props.showAddCard ?
+          <AddCardList items={this.props.total_cards}/>
+          :
+          null
+        }
       </div>
     )
   }
 }
 
-export default App
+App.propTypes = {
+  fetchCards: PropTypes.func.isRequired,
+  openAddCard: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+  total_cards: state.cards.total_cards,
+  showAddCard: state.cards.showAddCard
+});
+
+export default connect(mapStateToProps, {fetchCards, openAddCard})(App);

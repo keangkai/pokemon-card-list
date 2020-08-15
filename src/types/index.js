@@ -1,0 +1,5 @@
+export const FETCH_CARDS = 'FETCH_CARDS';
+export const ADD_TO_MY_POKEDEX = 'ADD_TO_MY_POKEDEX';
+export const REMOVE_FROM_MY_POKEDEX = 'REMOVE_FROM_MY_POKEDEX';
+export const OPEN_ADD_CARD = 'OPEN_ADD_CARD';
+export const CLOSE_ADD_CARD = 'CLOSE_ADD_CARD';
